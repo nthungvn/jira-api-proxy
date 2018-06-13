@@ -1,5 +1,10 @@
 package main
 
+var loginApi = APIDeclaration{
+	Method: POST,
+	URI:    "auth/1/session",
+}
+
 // Session ...
 type Session struct {
 	Name  string `json:"name"`

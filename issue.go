@@ -1,5 +1,15 @@
 package main
 
+var searchGet = APIDeclaration{
+	Method: GET,
+	URI:    "api/2/search",
+}
+
+var searchPost = APIDeclaration{
+	Method: POST,
+	URI:    "api/2/search",
+}
+
 // SimpleIssue ...
 type SimpleIssue struct {
 	ID     string      `json:"id"`
