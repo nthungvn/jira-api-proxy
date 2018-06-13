@@ -1,7 +1,12 @@
 package main
 
-var loginApi = APIDeclaration{
+var loginAPI = APIDeclaration{
 	Method: POST,
+	URI:    "auth/1/session",
+}
+
+var currentUserAPI = APIDeclaration{
+	Method: GET,
 	URI:    "auth/1/session",
 }
 
@@ -22,6 +27,12 @@ type LoginInfo struct {
 // Authentication ...
 type Authentication struct {
 	Session   Session   `json:"session"`
+	LoginInfo LoginInfo `json:"loginInfo"`
+}
+
+// CurrentSession ...
+type CurrentSession struct {
+	Name      string    `json:"name"`
 	LoginInfo LoginInfo `json:"loginInfo"`
 }
 
