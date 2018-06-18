@@ -2,12 +2,12 @@ package main
 
 var loginAPI = APIDeclaration{
 	Method: POST,
-	URI:    "auth/1/session",
+	URI:    "rest/auth/1/session",
 }
 
 var currentUserAPI = APIDeclaration{
 	Method: GET,
-	URI:    "auth/1/session",
+	URI:    "rest/auth/1/session",
 }
 
 // Session ...
