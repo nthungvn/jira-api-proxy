@@ -1,5 +1,12 @@
 package main
 
+import (
+	"errors"
+	"net/http"
+
+	"github.com/go-chi/render"
+)
+
 var loginAPI = APIDeclaration{
 	Method: POST,
 	URI:    "rest/auth/1/session",
@@ -30,6 +37,12 @@ type Authentication struct {
 	LoginInfo LoginInfo `json:"loginInfo"`
 }
 
+// Render ...
+func (a *Authentication) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
+
 // CurrentSession ...
 type CurrentSession struct {
 	Name      string    `json:"name"`
@@ -44,4 +57,12 @@ type User struct {
 
 func (a Authentication) cookie() string {
 	return a.Session.Name + "=" + a.Session.Value
+}
+
+// Bind interface for managing request payloads.
+func (u *User) Bind(r *http.Request) error {
+	if len(u.Username) == 0 || len(u.Password) == 0 {
+		return errors.New("The username or password is invalid")
+	}
+	return nil
 }

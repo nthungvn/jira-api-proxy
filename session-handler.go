@@ -5,21 +5,25 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/go-chi/render"
+
 	"github.com/sirupsen/logrus"
 )
 
 var auth Authentication
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-	u := User{
-		Username: "nthung",
-		Password: "R50kZLs@6",
+	u := &User{}
+	if err := render.Bind(r, u); err != nil {
+		render.Render(w, r, ErrorInvalidRequest(err))
+		return
 	}
 	_, err := rest.New().Post(loginAPI.URI).BodyJSON(u).ReceiveSuccess(&auth)
 	if err == nil {
 		logrus.Info(auth)
+		render.Status(r, http.StatusOK)
+		render.Render(w, r, &auth)
 	}
-
 }
 
 func getCurrentLoginHandler(w http.ResponseWriter, r *http.Request) {
