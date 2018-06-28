@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -25,7 +24,7 @@ func main() {
 	r.Use(middleware.Timeout(60 * time.Second))
 
 	logrus.SetFormatter(&logrus.JSONFormatter{})
-	fmt.Printf("%+v\n", conf)
+	logrus.Info(conf)
 
 	r.Route("/rest", func(r chi.Router) {
 		r.Route("/auth/1", func(r chi.Router) {

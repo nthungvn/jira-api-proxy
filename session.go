@@ -49,6 +49,12 @@ type CurrentSession struct {
 	LoginInfo LoginInfo `json:"loginInfo"`
 }
 
+// Render ...
+func (s *CurrentSession) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
+
 // User ...
 type User struct {
 	Username string `json:"username"`

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/go-chi/render"
@@ -30,7 +28,8 @@ func getCurrentLoginHandler(w http.ResponseWriter, r *http.Request) {
 	var currentLogin CurrentSession
 	_, err = rest.New().Get(currentUserAPI.URI).Set(COOKIE, auth.cookie()).ReceiveSuccess(&currentLogin)
 	if err == nil {
-		fmt.Printf("%+v\n", currentLogin)
+		logrus.Info(currentLogin)
+		render.Render(w, r, &currentLogin)
+		return
 	}
-	json.NewEncoder(w).Encode(currentLogin)
 }
