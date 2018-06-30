@@ -34,7 +34,15 @@ func main() {
 			})
 		})
 		r.Route("/api/2", func(r chi.Router) {
-
+			r.Route("/jql", func(r chi.Router) {
+				r.Route("/autocompletedata", func(r chi.Router) {
+					r.Get("/suggestions", getFieldAutoCompleteDataHandler)
+				})
+			})
+			r.Route("/search", func(r chi.Router) {
+				r.Get("/", searchGetIssueHandler)
+				r.Post("", searchPostIssueHandler)
+			})
 		})
 		r.Route("/greenhopper/1.0", func(r chi.Router) {
 			r.Route("/sprint", func(r chi.Router) {

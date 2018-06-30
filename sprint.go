@@ -7,7 +7,7 @@ import (
 )
 
 var sprintPicker = APIDeclaration{
-	Method: POST,
+	Method: GET,
 	URI:    "rest/greenhopper/1.0/sprint/picker",
 }
 

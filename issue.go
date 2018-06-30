@@ -28,23 +28,23 @@ type SimpleField struct {
 
 // Issue ...
 type Issue struct {
-	Self   string `json:"self"`
 	ID     string `json:"id"`
 	Key    string `json:"key"`
+	Self   string `json:"self"`
 	Fields Field  `json:"fields"`
 }
 
 // Field ...
 type Field struct {
-	IssueType IssueType     `json:"issuetype"`
-	Parent    SimpleIssue   `json:"parent"`
-	Priority  Priority      `json:"priority"`
-	Assignee  Person        `json:"assignee"`
-	Status    Status        `json:"status"`
-	Summary   string        `json:"summary"`
-	SubTasks  []SimpleIssue `json:"subtasks"`
-	Reporter  Person        `json:"reporter"`
-	Point     int           `json:"customfield_10002"`
+	IssueType IssueType   `json:"issuetype"`
+	Parent    SimpleIssue `json:"parent"`
+	Priority  Priority    `json:"priority"`
+	Assignee  Person      `json:"assignee"`
+	Status    Status      `json:"status"`
+	Summary   string      `json:"summary"`
+	SubTasks  []Issue     `json:"subtasks"`
+	Reporter  Person      `json:"reporter"`
+	Point     int         `json:"customfield_10002"`
 }
 
 // Priority ...

@@ -7,10 +7,8 @@ var autoCompleteData = APIDeclaration{
 
 // Suggestion ...
 type Suggestion struct {
-	FieldName      string `url:"fieldName,omitempty"`
-	FieldValue     string `url:"fieldValue,omitempty"`
-	PredicateName  string `url:"predicateName,omitempty"`
-	PredicateValue string `url:"predicateValue,omitempty"`
+	FieldName  string `url:"fieldName,omitempty"`
+	FieldValue string `url:"fieldValue,omitempty"`
 }
 
 // SprintSuggestion ...
