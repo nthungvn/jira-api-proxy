@@ -1,23 +1,35 @@
 package main
 
+import (
+	"net/http"
+
+	"github.com/go-chi/render"
+)
+
 var autoCompleteData = APIDeclaration{
 	Method: GET,
-	URI:    "api/2/jql/autocompletedata/suggestions",
+	URI:    "rest/api/2/jql/autocompletedata/suggestions",
 }
 
-// Suggestion ...
-type Suggestion struct {
+// FieldSuggestion ...
+type FieldSuggestion struct {
 	FieldName  string `url:"fieldName,omitempty"`
 	FieldValue string `url:"fieldValue,omitempty"`
 }
 
-// SprintSuggestion ...
-type SprintSuggestion struct {
+// FieldSuggestionResult ...
+type FieldSuggestionResult struct {
 	Value       string `json:"value"`
 	DisplayName string `json:"displayName"`
 }
 
-// SprintSuggestions ...
-type SprintSuggestions struct {
-	Results []SprintSuggestion `json:"results"`
+// FieldSuggestionResults ...
+type FieldSuggestionResults struct {
+	Results []FieldSuggestionResult `json:"results"`
+}
+
+// Render ...
+func (sr *FieldSuggestionResults) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
 }

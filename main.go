@@ -41,7 +41,7 @@ func main() {
 			})
 			r.Route("/search", func(r chi.Router) {
 				r.Get("/", searchGetIssueHandler)
-				r.Post("", searchPostIssueHandler)
+				r.Post("/", searchPostIssueHandler)
 			})
 		})
 		r.Route("/greenhopper/1.0", func(r chi.Router) {

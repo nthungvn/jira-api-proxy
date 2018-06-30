@@ -13,8 +13,8 @@ var sprintPicker = APIDeclaration{
 
 // SprintPickerRequest ...
 type SprintPickerRequest struct {
-	ExcludeCompleted bool   `json:"excludeCompleted"`
-	Query            string `json:"query"`
+	ExcludeCompleted bool   `json:"excludeCompleted,omitempty"`
+	Query            string `json:"query,omitempty"`
 }
 
 // SprintPickerResponse ...
