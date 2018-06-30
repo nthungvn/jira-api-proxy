@@ -36,6 +36,11 @@ func main() {
 		r.Route("/api/2", func(r chi.Router) {
 
 		})
+		r.Route("/greenhopper/1.0", func(r chi.Router) {
+			r.Route("/sprint", func(r chi.Router) {
+				r.Get("/picker", sprintPickerHanlder)
+			})
+		})
 	})
 
 	http.ListenAndServe(":8470", r)
