@@ -13,7 +13,7 @@ var auth Authentication
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	u := &User{}
 	if err := render.Bind(r, u); err != nil {
-		render.Render(w, r, ErrorInvalidRequest(err))
+		render.Render(w, r, ErrorUnauthorized(err))
 		return
 	}
 	_, err := rest.New().Post(loginAPI.URI).BodyJSON(u).ReceiveSuccess(&auth)

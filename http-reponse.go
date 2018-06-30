@@ -8,11 +8,10 @@ import (
 
 // ErrorResponse ...
 type ErrorResponse struct {
-	Err            error  `json:"-"`
-	HTTPStatusCode int    `json:"-"`
-	StatusText     string `json:"status"`
-	AppCode        int64  `json:"code,omitempty"`
-	ErrorText      string `json:"error,omitempty"`
+	Err            error             `json:"-"`
+	HTTPStatusCode int               `json:"-"`
+	ErrorMessages  []string          `json:"errorMessages"`
+	Errors         map[string]string `json:"errors,omitempty"`
 }
 
 // Render ...
@@ -26,8 +25,7 @@ func ErrorUnauthorized(err error) render.Renderer {
 	return &ErrorResponse{
 		Err:            err,
 		HTTPStatusCode: 401,
-		StatusText:     "Unauthorized",
-		ErrorText:      err.Error(),
+		ErrorMessages:  []string{"Login failed"},
 	}
 }
 
@@ -36,7 +34,6 @@ func ErrorInvalidRequest(err error) render.Renderer {
 	return &ErrorResponse{
 		Err:            err,
 		HTTPStatusCode: 400,
-		StatusText:     "Invalid request",
-		ErrorText:      err.Error(),
+		ErrorMessages:  []string{"Invalid request"},
 	}
 }
