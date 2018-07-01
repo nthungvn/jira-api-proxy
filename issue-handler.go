@@ -13,20 +13,30 @@ func searchGetIssueHandler(w http.ResponseWriter, r *http.Request) {
 	fields, _ := param.QueryString(r, "fields")
 	maxResults, _ := param.QueryInt(r, "maxResults")
 
-	requestAPI := &SearchIssueRequest{
+	requestAPI := &SearchIssueGetRequest{
 		Jql:        jql,
 		Fields:     fields,
 		MaxResults: maxResults,
 	}
-	reponseAPI := &SearchIssueReponse{}
-	res, err := rest.New().Get(searchGet.URI).QueryStruct(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(reponseAPI)
+	responseAPI := &SearchIssueReponse{}
+	res, err := rest.New().Get(searchGet.URI).QueryStruct(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(responseAPI)
 	if err == nil {
-		render.Render(w, r, reponseAPI)
+		render.Render(w, r, responseAPI)
 		return
 	}
 	logrus.Info(res)
 }
 
 func searchPostIssueHandler(w http.ResponseWriter, r *http.Request) {
-
+	requestAPI := &SearchIssuePostRequest{}
+	if err := render.Bind(r, requestAPI); err != nil {
+		logrus.Error(err.Error())
+	}
+	responseAPI := &SearchIssueReponse{}
+	res, err := rest.New().Post(searchPost.URI).BodyJSON(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(responseAPI)
+	if err != nil {
+		logrus.Error(err.Error())
+		logrus.Info(res)
+	}
+	render.Render(w, r, responseAPI)
 }

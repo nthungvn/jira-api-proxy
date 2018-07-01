@@ -89,11 +89,23 @@ type IssueType struct {
 	SubTask bool   `json:"subtask"`
 }
 
-// SearchIssueRequest ...
-type SearchIssueRequest struct {
+// SearchIssueGetRequest ...
+type SearchIssueGetRequest struct {
 	Jql        string `url:"jql,omitempty"`
 	Fields     string `url:"fields,omitempty"`
 	MaxResults int    `url:"maxResults,omitempty"`
+}
+
+// SearchIssuePostRequest ...
+type SearchIssuePostRequest struct {
+	Jql        string   `json:"jql,omitempty"`
+	Fields     []string `json:"fields,omitempty"`
+	MaxResults int      `json:"maxResults,omitempty"`
+}
+
+// Bind ...
+func (sir *SearchIssuePostRequest) Bind(r *http.Request) error {
+	return nil
 }
 
 // SearchIssueReponse ...
