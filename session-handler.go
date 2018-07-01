@@ -16,20 +16,22 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		render.Render(w, r, ErrUnauthorized(err))
 		return
 	}
-	_, err := rest.New().Post(loginAPI.URI).BodyJSON(u).ReceiveSuccess(&auth)
-	if err == nil {
-		logrus.Info(auth)
-		render.Status(r, http.StatusOK)
-		render.Render(w, r, &auth)
+	res, err := rest.New().Post(loginAPI.URI).BodyJSON(u).ReceiveSuccess(&auth)
+	if err != nil {
+		logrus.Info(res)
+		render.Render(w, r, ErrInvalidRequest(err))
+		return
 	}
+	render.Render(w, r, &auth)
 }
 
 func getCurrentLoginHandler(w http.ResponseWriter, r *http.Request) {
-	var currentLogin CurrentSession
-	_, err = rest.New().Get(currentUserAPI.URI).Set(COOKIE, auth.cookie()).ReceiveSuccess(&currentLogin)
-	if err == nil {
-		logrus.Info(currentLogin)
-		render.Render(w, r, &currentLogin)
+	currentLogin := &CurrentSession{}
+	res, err := rest.New().Get(currentUserAPI.URI).Set(COOKIE, auth.cookie()).ReceiveSuccess(currentLogin)
+	if err != nil {
+		logrus.Info(res)
+		render.Render(w, r, ErrInvalidRequest(err))
 		return
 	}
+	render.Render(w, r, currentLogin)
 }

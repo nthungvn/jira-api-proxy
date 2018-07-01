@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/render"
+	"github.com/sirupsen/logrus"
 )
 
 var loginAPI = APIDeclaration{
@@ -39,6 +40,7 @@ type Authentication struct {
 
 // Render ...
 func (a *Authentication) Render(w http.ResponseWriter, r *http.Request) error {
+	logrus.Info(a)
 	render.Status(r, http.StatusOK)
 	return nil
 }
@@ -51,6 +53,7 @@ type CurrentSession struct {
 
 // Render ...
 func (s *CurrentSession) Render(w http.ResponseWriter, r *http.Request) error {
+	logrus.Info(s)
 	render.Status(r, http.StatusOK)
 	return nil
 }

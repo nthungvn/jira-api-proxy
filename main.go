@@ -13,7 +13,7 @@ import (
 )
 
 var conf = AppConfiguration{}
-var err = gonfig.GetConf(getConfFile(), &conf)
+var _ = gonfig.GetConf(getConfFile(), &conf)
 var rest = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
 
 func main() {

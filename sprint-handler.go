@@ -19,9 +19,10 @@ func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) {
 	var sprintPickerSuggestion SprintPickerSuggestion
 
 	res, err := rest.New().Get(sprintPicker.URI).QueryStruct(params).Set(COOKIE, auth.cookie()).ReceiveSuccess(&sprintPickerSuggestion)
-	if err == nil {
+	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, &sprintPickerSuggestion)
+		render.Render(w, r, ErrInvalidRequest(err))
 		return
 	}
+	render.Render(w, r, &sprintPickerSuggestion)
 }
