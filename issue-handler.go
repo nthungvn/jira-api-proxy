@@ -22,7 +22,7 @@ func searchGetIssueHandler(w http.ResponseWriter, r *http.Request) {
 	res, err := rest.New().Get(searchGet.URI).QueryStruct(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(responseAPI)
 	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, ErrorInvalidRequest(err))
+		render.Render(w, r, ErrInvalidRequest(err))
 		return
 	}
 	render.Render(w, r, responseAPI)
@@ -37,7 +37,7 @@ func searchPostIssueHandler(w http.ResponseWriter, r *http.Request) {
 	res, err := rest.New().Post(searchPost.URI).BodyJSON(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(responseAPI)
 	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, ErrorInvalidRequest(err))
+		render.Render(w, r, ErrInvalidRequest(err))
 		return
 	}
 	render.Render(w, r, responseAPI)
