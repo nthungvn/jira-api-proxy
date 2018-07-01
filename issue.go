@@ -104,7 +104,7 @@ type SearchIssuePostRequest struct {
 }
 
 // Bind ...
-func (sir *SearchIssuePostRequest) Bind(r *http.Request) error {
+func (s *SearchIssuePostRequest) Bind(r *http.Request) error {
 	return nil
 }
 
@@ -119,7 +119,7 @@ type SearchIssueReponse struct {
 }
 
 // Render ...
-func (si *SearchIssueReponse) Render(w http.ResponseWriter, r *http.Request) error {
+func (s *SearchIssueReponse) Render(w http.ResponseWriter, r *http.Request) error {
 	render.Status(r, http.StatusOK)
 	return nil
 }

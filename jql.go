@@ -29,7 +29,7 @@ type FieldSuggestionResults struct {
 }
 
 // Render ...
-func (sr *FieldSuggestionResults) Render(w http.ResponseWriter, r *http.Request) error {
+func (f *FieldSuggestionResults) Render(w http.ResponseWriter, r *http.Request) error {
 	render.Status(r, http.StatusOK)
 	return nil
 }

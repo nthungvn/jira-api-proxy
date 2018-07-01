@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/go-chi/render"
-	param "github.com/oceanicdev/chi-param"
+	"github.com/oceanicdev/chi-param"
 )
 
 func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) {

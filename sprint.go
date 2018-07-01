@@ -32,14 +32,7 @@ type SprintPickerSuggestion struct {
 }
 
 // Render ...
-func (sp *SprintPickerSuggestion) Render(w http.ResponseWriter, r *http.Request) error {
+func (p *SprintPickerSuggestion) Render(w http.ResponseWriter, r *http.Request) error {
 	render.Status(r, http.StatusOK)
 	return nil
 }
-
-// Sprint status
-const (
-	FUTURE = "FUTURE"
-	ACTIVE = "ACTIVE"
-	CLOSED = "CLOSED"
-)
