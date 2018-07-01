@@ -19,7 +19,7 @@ func getFieldAutoCompleteDataHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fieldSuggestionResults := &FieldSuggestionResults{}
-	res, err := rest.New().Get(autoCompleteData.URI).QueryStruct(fieldSuggestion).ReceiveSuccess(fieldSuggestionResults)
+	res, err := rest.New().Get(autoCompleteData.URI).QueryStruct(fieldSuggestion).Set(COOKIE, auth.cookie()).ReceiveSuccess(fieldSuggestionResults)
 	if err == nil {
 		logrus.Info(res)
 		render.Render(w, r, fieldSuggestionResults)

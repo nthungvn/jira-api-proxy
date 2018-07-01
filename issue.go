@@ -1,13 +1,19 @@
 package main
 
+import (
+	"net/http"
+
+	"github.com/go-chi/render"
+)
+
 var searchGet = APIDeclaration{
 	Method: GET,
-	URI:    "api/2/search",
+	URI:    "rest/api/2/search",
 }
 
 var searchPost = APIDeclaration{
 	Method: POST,
-	URI:    "api/2/search",
+	URI:    "rest/api/2/search",
 }
 
 // SimpleIssue ...
@@ -44,7 +50,7 @@ type Field struct {
 	Summary   string      `json:"summary"`
 	SubTasks  []Issue     `json:"subtasks"`
 	Reporter  Person      `json:"reporter"`
-	Point     int         `json:"customfield_10002"`
+	Point     float32     `json:"customfield_10002"`
 }
 
 // Priority ...
@@ -81,4 +87,27 @@ type IssueType struct {
 	IconURL string `json:"iconUrl"`
 	Name    string `json:"name"`
 	SubTask bool   `json:"subtask"`
+}
+
+// SearchIssueRequest ...
+type SearchIssueRequest struct {
+	Jql        string `url:"jql,omitempty"`
+	Fields     string `url:"fields,omitempty"`
+	MaxResults int    `url:"maxResults,omitempty"`
+}
+
+// SearchIssueReponse ...
+type SearchIssueReponse struct {
+	Expand          string   `json:"expand,omitempty"`
+	StartAt         int      `json:"startAt,omitempty"`
+	MaxResults      int      `json:"maxResults,omitempty"`
+	Total           int      `json:"total,omitempty"`
+	Issues          []Issue  `json:"issues,omitempty"`
+	WarningMessages []string `json:"warningMessages,omitempty"`
+}
+
+// Render ...
+func (si *SearchIssueReponse) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
 }
