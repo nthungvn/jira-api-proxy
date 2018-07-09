@@ -10,7 +10,7 @@ import (
 	"github.com/oceanicdev/chi-param"
 )
 
-func getFieldAutoCompleteDataHandler(w http.ResponseWriter, r *http.Request) {
+func getFieldAutoCompleteDataHandler(w http.ResponseWriter, r *http.Request) error {
 	fieldName, _ := param.QueryString(r, "fieldName")
 	fieldValue, _ := param.QueryString(r, "fieldValue")
 	fieldSuggestion := &FieldSuggestion{
@@ -22,8 +22,7 @@ func getFieldAutoCompleteDataHandler(w http.ResponseWriter, r *http.Request) {
 	res, err := rest.New().Get(autoCompleteData.URI).QueryStruct(fieldSuggestion).Set(COOKIE, auth.cookie()).ReceiveSuccess(fieldSuggestionResults)
 	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, ErrInvalidRequest(err))
-		return
+		return err
 	}
-	render.Render(w, r, fieldSuggestionResults)
+	return render.Render(w, r, fieldSuggestionResults)
 }

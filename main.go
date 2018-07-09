@@ -39,24 +39,24 @@ func main() {
 	r.Route("/rest", func(r chi.Router) {
 		r.Route("/auth/1", func(r chi.Router) {
 			r.Route("/session", func(r chi.Router) {
-				r.Post("/", loginHandler)
-				r.Get("/", getCurrentLoginHandler)
+				r.Post("/", Handler(loginHandler).ServeHTTP)
+				r.Get("/", Handler(getCurrentLoginHandler).ServeHTTP)
 			})
 		})
 		r.Route("/api/2", func(r chi.Router) {
 			r.Route("/jql", func(r chi.Router) {
 				r.Route("/autocompletedata", func(r chi.Router) {
-					r.Get("/suggestions", getFieldAutoCompleteDataHandler)
+					r.Get("/suggestions", Handler(getFieldAutoCompleteDataHandler).ServeHTTP)
 				})
 			})
 			r.Route("/search", func(r chi.Router) {
-				r.Get("/", searchGetIssueHandler)
-				r.Post("/", searchPostIssueHandler)
+				r.Get("/", Handler(searchGetIssueHandler).ServeHTTP)
+				r.Post("/", Handler(searchPostIssueHandler).ServeHTTP)
 			})
 		})
 		r.Route("/greenhopper/1.0", func(r chi.Router) {
 			r.Route("/sprint", func(r chi.Router) {
-				r.Get("/picker", sprintPickerHanlder)
+				r.Get("/picker", Handler(sprintPickerHanlder).ServeHTTP)
 			})
 		})
 	})

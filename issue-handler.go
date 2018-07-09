@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func searchGetIssueHandler(w http.ResponseWriter, r *http.Request) {
+func searchGetIssueHandler(w http.ResponseWriter, r *http.Request) error {
 	jql, _ := param.QueryString(r, "jql")
 	fields, _ := param.QueryString(r, "fields")
 	maxResults, _ := param.QueryInt(r, "maxResults")
@@ -22,23 +22,22 @@ func searchGetIssueHandler(w http.ResponseWriter, r *http.Request) {
 	res, err := rest.New().Get(searchGet.URI).QueryStruct(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(responseAPI)
 	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, ErrInvalidRequest(err))
-		return
+		return err
 	}
-	render.Render(w, r, responseAPI)
+	return render.Render(w, r, responseAPI)
 }
 
-func searchPostIssueHandler(w http.ResponseWriter, r *http.Request) {
+func searchPostIssueHandler(w http.ResponseWriter, r *http.Request) error {
 	requestAPI := &SearchIssuePostRequest{}
 	if err := render.Bind(r, requestAPI); err != nil {
 		logrus.Error(err.Error())
+		return err
 	}
 	responseAPI := &SearchIssueReponse{}
 	res, err := rest.New().Post(searchPost.URI).BodyJSON(requestAPI).Set(COOKIE, auth.cookie()).ReceiveSuccess(responseAPI)
 	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, ErrInvalidRequest(err))
-		return
+		return err
 	}
-	render.Render(w, r, responseAPI)
+	return render.Render(w, r, responseAPI)
 }

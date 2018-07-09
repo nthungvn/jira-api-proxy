@@ -9,7 +9,7 @@ import (
 	"github.com/oceanicdev/chi-param"
 )
 
-func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) {
+func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) error {
 	excludeCompleted, _ := param.QueryBool(r, "excludeCompleted")
 	query, _ := param.QueryString(r, "query")
 	params := &SprintPickerRequest{
@@ -21,8 +21,7 @@ func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) {
 	res, err := rest.New().Get(sprintPicker.URI).QueryStruct(params).Set(COOKIE, auth.cookie()).ReceiveSuccess(&sprintPickerSuggestion)
 	if err != nil {
 		logrus.Info(res)
-		render.Render(w, r, ErrInvalidRequest(err))
-		return
+		return err
 	}
-	render.Render(w, r, &sprintPickerSuggestion)
+	return render.Render(w, r, &sprintPickerSuggestion)
 }
