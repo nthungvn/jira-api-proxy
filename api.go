@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/render"
+	"github.com/sirupsen/logrus"
 )
 
 // HTTP verbs
@@ -21,10 +22,11 @@ type APIDeclaration struct {
 }
 
 // Handler ...
-type Handler func(w http.ResponseWriter, r *http.Request) error
+type Handler func(w http.ResponseWriter, r *http.Request) (*http.Response, error)
 
 func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if err := h(w, r); err != nil {
+	if res, err := h(w, r); err != nil {
+		logrus.Info(res)
 		render.Render(w, r, ErrInvalidRequest(err))
 	}
 }

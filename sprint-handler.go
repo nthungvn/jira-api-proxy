@@ -3,13 +3,11 @@ package main
 import (
 	"net/http"
 
-	"github.com/sirupsen/logrus"
-
 	"github.com/go-chi/render"
 	"github.com/oceanicdev/chi-param"
 )
 
-func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) error {
+func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) (*http.Response, error) {
 	excludeCompleted, _ := param.QueryBool(r, "excludeCompleted")
 	query, _ := param.QueryString(r, "query")
 	params := &SprintPickerRequest{
@@ -20,8 +18,7 @@ func sprintPickerHanlder(w http.ResponseWriter, r *http.Request) error {
 
 	res, err := rest.New().Get(sprintPicker.URI).QueryStruct(params).Set(COOKIE, auth.cookie()).ReceiveSuccess(&sprintPickerSuggestion)
 	if err != nil {
-		logrus.Info(res)
-		return err
+		return res, err
 	}
-	return render.Render(w, r, &sprintPickerSuggestion)
+	return res, render.Render(w, r, &sprintPickerSuggestion)
 }
