@@ -10,3 +10,13 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Output of fresh reload
+/tmp
+
+# Output of vscode debug
+debug
+
+# Program
+/configs/conf.development.json
+jira-api-proxy

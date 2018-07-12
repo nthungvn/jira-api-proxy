@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/tmp": true,
+        "**/jira-api-proxy*": true,
+        "**/debug*": true,
+    }
+}
