@@ -3,5 +3,6 @@
         "**/tmp": true,
         "**/jira-api-proxy*": true,
         "**/debug*": true,
-    }
+        "**/vendor/*/*": true,
+    },
 }
