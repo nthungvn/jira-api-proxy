@@ -1,7 +1,85 @@
 {
-	"rootPath": "github.com/nthungvn/jira-api-proxy",
+	"comment": "",
 	"heroku": {
 		"goVersion": "go1.10",
-		"install": ["."]
-	}
+		"install": [
+			"."
+		]
+	},
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "uo3tvE16IbjxYfdFIhKUx0HCn8A=",
+			"path": "github.com/dghubble/sling",
+			"revision": "c519674860ff275e0ceb12caf5d87b31765c4e71",
+			"revisionTime": "2018-01-25T22:13:52Z"
+		},
+		{
+			"checksumSHA1": "9fH2Wod5bN3E4GWNBFPVWPj25wM=",
+			"path": "github.com/go-chi/chi",
+			"revision": "cca4135d8dddff765463feaf1118047a9e506b4a",
+			"revisionTime": "2018-04-24T17:23:50Z"
+		},
+		{
+			"checksumSHA1": "1Xlo4sCR+zeOzjslXc/NAOmkgXg=",
+			"path": "github.com/go-chi/chi/middleware",
+			"revision": "cca4135d8dddff765463feaf1118047a9e506b4a",
+			"revisionTime": "2018-04-24T17:23:50Z"
+		},
+		{
+			"checksumSHA1": "r/8uaoEFx3XAL2U2MJ3xmgJ78qo=",
+			"path": "github.com/go-chi/cors",
+			"revision": "dba6525398619dead495962a916728e7ee2ca322",
+			"revisionTime": "2017-08-02T15:05:10Z"
+		},
+		{
+			"checksumSHA1": "Uxtuf0yrw6/aMBgPMj1JZRRllBY=",
+			"path": "github.com/go-chi/render",
+			"revision": "3215478343fbc559bd3fc08f7031bb134d6bdad5",
+			"revisionTime": "2018-05-31T15:06:17Z"
+		},
+		{
+			"checksumSHA1": "p3IB18uJRs4dL2K5yx24MrLYE9A=",
+			"path": "github.com/google/go-querystring/query",
+			"revision": "53e6ce116135b80d037921a7fdd5138cf32d7a8a",
+			"revisionTime": "2017-01-11T10:11:55Z"
+		},
+		{
+			"checksumSHA1": "Onbv1eSRKJWAVcdNvK9yCrNBDBM=",
+			"path": "github.com/oceanicdev/chi-param",
+			"revision": "102cd1fa5b75d02ad4a2328abc5fe4e5445f2484",
+			"revisionTime": "2018-05-22T23:55:06Z"
+		},
+		{
+			"checksumSHA1": "eyXP+FOq/7Yi5AHRLchweAtraq0=",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "75068beb13ada9c0ddde611f678523fda7352650",
+			"revisionTime": "2018-06-18T11:14:19Z"
+		},
+		{
+			"checksumSHA1": "2Cs00lF05dakzkHHkYWuedCf6nY=",
+			"path": "github.com/tkanos/gonfig",
+			"revision": "140e7c7ecea9170d71a841e208b86685c845eb53",
+			"revisionTime": "2018-03-27T13:18:05Z"
+		},
+		{
+			"checksumSHA1": "BGm8lKZmvJbf/YOJLeL1rw2WVjA=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "a49355c7e3f8fe157a85be2f77e6e269a0f89602",
+			"revisionTime": "2018-06-20T09:14:27Z"
+		},
+		{
+			"checksumSHA1": "z2j2TvY7Vf7Ux1y9d6eUrKicbGs=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "63fc586f45fe72d95d5240a5d5eb95e6503907d3",
+			"revisionTime": "2018-06-21T12:21:10Z"
+		},
+		{
+			"checksumSHA1": "zc2NI38L40/N4+pjd9P2ESz68/0=",
+			"path": "golang.org/x/sys/windows",
+			"revision": "63fc586f45fe72d95d5240a5d5eb95e6503907d3",
+			"revisionTime": "2018-06-21T12:21:10Z"
+		}
+	],
+	"rootPath": "github.com/nthungvn/jira-api-proxy"
 }
