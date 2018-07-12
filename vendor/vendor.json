@@ -1,0 +1,7 @@
+{
+	"rootPath": "github.com/nthungvn/jira-api-proxy",
+	"heroku": {
+		"goVersion": "go1.10",
+		"install": ["."]
+	}
+}
