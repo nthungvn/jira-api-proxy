@@ -25,11 +25,15 @@ func (c *AppConfiguration) ServerPort() string {
 }
 
 func getConfFile() string {
+	dir := os.Getenv("CONFIG_DIR")
+	if len(dir) == 0 {
+		dir = "configs"
+	}
 	env := os.Getenv("ENV")
 	if len(env) == 0 {
 		env = "development"
 	}
 	fileName := []string{"conf.", env, ".json"}
-	filePath := path.Join("configs", strings.Join(fileName, ""))
+	filePath := path.Join(dir, strings.Join(fileName, ""))
 	return filePath
 }
