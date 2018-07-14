@@ -36,5 +36,10 @@ func getConfFile() string {
 	fileName := []string{"conf.", env, ".json"}
 	filePath := path.Join(dir, strings.Join(fileName, ""))
 	logrus.Infof("File %s is load as configuration", filePath)
+	_, err := os.Open(filePath)
+	if err != nil {
+		logrus.Errorf("Could not open file %s", filePath)
+		logrus.Error(err)
+	}
 	return filePath
 }
