@@ -19,6 +19,7 @@ debug
 
 # Program
 /configs/conf.development.json
+/configs/conf.test.json
 jira-api-proxy
 
 # Vendor

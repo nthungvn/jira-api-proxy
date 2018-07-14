@@ -61,5 +61,5 @@ func main() {
 		})
 	})
 
-	http.ListenAndServe(":8470", r)
+	http.ListenAndServe(conf.ServerPort(), r)
 }
