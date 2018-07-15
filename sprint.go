@@ -29,6 +29,7 @@ type SprintPickerResponse struct {
 // SprintPickerSuggestion ...
 type SprintPickerSuggestion struct {
 	Suggestions []SprintPickerResponse `json:"suggestions"`
+	AllMatches  []SprintPickerResponse `json:"allMatches,omitempty"`
 }
 
 // Render ...
