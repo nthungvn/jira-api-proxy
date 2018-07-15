@@ -64,10 +64,6 @@ type User struct {
 	Password string `json:"password"`
 }
 
-func (a Authentication) cookie() string {
-	return a.Session.Name + "=" + a.Session.Value
-}
-
 // Bind interface for managing request payloads.
 func (u *User) Bind(r *http.Request) error {
 	if len(u.Username) == 0 || len(u.Password) == 0 {
