@@ -3,11 +3,12 @@ package main
 import (
 	"net/http"
 
+	"github.com/dghubble/sling"
 	"github.com/go-chi/render"
 	"github.com/oceanicdev/chi-param"
 )
 
-func getFieldAutoCompleteDataHandler(w http.ResponseWriter, r *http.Request) (*http.Response, error) {
+func getFieldAutoCompleteDataHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (*http.Response, error) {
 	fieldName, _ := param.QueryString(r, "fieldName")
 	fieldValue, _ := param.QueryString(r, "fieldValue")
 	fieldSuggestion := &FieldSuggestion{
@@ -16,7 +17,7 @@ func getFieldAutoCompleteDataHandler(w http.ResponseWriter, r *http.Request) (*h
 	}
 
 	fieldSuggestionResults := &FieldSuggestionResults{}
-	res, err := rest.New().Get(autoCompleteData.URI).QueryStruct(fieldSuggestion).Set(COOKIE, auth.cookie()).ReceiveSuccess(fieldSuggestionResults)
+	res, err := rester.New().Get(autoCompleteData.URI).QueryStruct(fieldSuggestion).ReceiveSuccess(fieldSuggestionResults)
 	if err != nil {
 		return res, err
 	}

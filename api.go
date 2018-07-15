@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/dghubble/sling"
 	"github.com/go-chi/render"
 	"github.com/sirupsen/logrus"
 )
@@ -15,6 +16,11 @@ const (
 	DELETE = "DELETE"
 )
 
+// Cookie names
+const (
+	JSESSIONID = "JSESSIONID"
+)
+
 // APIDeclaration ...
 type APIDeclaration struct {
 	Method string
@@ -22,10 +28,18 @@ type APIDeclaration struct {
 }
 
 // Handler ...
-type Handler func(w http.ResponseWriter, r *http.Request) (*http.Response, error)
+type Handler func(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (*http.Response, error)
 
 func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if res, err := h(w, r); err != nil {
+	session, _ := r.Cookie(JSESSIONID)
+	username, password, _ := r.BasicAuth()
+	rester := rest.New().Set(COOKIE, session.String())
+
+	if len(username) > 0 && len(password) > 0 {
+		rester.SetBasicAuth(username, password)
+	}
+
+	if res, err := h(rester, w, r); err != nil {
 		logrus.Info(res)
 		render.Render(w, r, ErrInvalidRequest(err))
 	}
