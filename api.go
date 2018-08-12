@@ -49,7 +49,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) handleErrorCode(w http.ResponseWriter, res *http.Response, err error) {
+func (h Handler) handleErrorCode(w http.ResponseWriter, res *http.Response, err error) {
 	if res.StatusCode == http.StatusUnauthorized {
 		render.Render(w, res.Request, ErrUnauthorized(err))
 	} else {

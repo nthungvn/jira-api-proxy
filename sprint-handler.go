@@ -18,8 +18,8 @@ func sprintPickerHanlder(rester *sling.Sling, w http.ResponseWriter, r *http.Req
 	var sprintPickerSuggestion SprintPickerSuggestion
 
 	res, err := rester.New().Get(sprintPicker.URI).QueryStruct(params).ReceiveSuccess(&sprintPickerSuggestion)
-	if err != nil {
-		return res, err
+	if err == nil && res.StatusCode == http.StatusOK {
+		return nil, render.Render(w, r, &sprintPickerSuggestion)
 	}
-	return res, render.Render(w, r, &sprintPickerSuggestion)
+	return res, err
 }

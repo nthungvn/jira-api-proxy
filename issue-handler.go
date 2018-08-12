@@ -20,10 +20,10 @@ func searchGetIssueHandler(rester *sling.Sling, w http.ResponseWriter, r *http.R
 	}
 	responseAPI := &SearchIssueReponse{}
 	res, err := rester.New().Get(searchGet.URI).QueryStruct(requestAPI).ReceiveSuccess(responseAPI)
-	if err != nil {
-		return res, err
+	if err == nil && res.StatusCode == http.StatusOK {
+		return nil, render.Render(w, r, responseAPI)
 	}
-	return res, render.Render(w, r, responseAPI)
+	return res, err
 }
 
 func searchPostIssueHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (*http.Response, error) {
@@ -33,8 +33,8 @@ func searchPostIssueHandler(rester *sling.Sling, w http.ResponseWriter, r *http.
 	}
 	responseAPI := &SearchIssueReponse{}
 	res, err := rester.New().Post(searchPost.URI).BodyJSON(requestAPI).ReceiveSuccess(responseAPI)
-	if err != nil {
-		return nil, err
+	if err == nil && res.StatusCode == http.StatusOK {
+		return nil, render.Render(w, r, responseAPI)
 	}
-	return res, render.Render(w, r, responseAPI)
+	return res, err
 }

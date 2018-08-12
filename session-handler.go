@@ -23,8 +23,8 @@ func loginHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (
 func getCurrentLoginHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (*http.Response, error) {
 	currentLogin := &CurrentSession{}
 	res, err := rester.New().Get(currentUserAPI.URI).ReceiveSuccess(currentLogin)
-	if err != nil {
-		return res, err
+	if err == nil && res.StatusCode == http.StatusOK {
+		return nil, render.Render(w, r, currentLogin)
 	}
-	return res, render.Render(w, r, currentLogin)
+	return res, err
 }

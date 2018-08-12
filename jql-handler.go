@@ -18,8 +18,8 @@ func getFieldAutoCompleteDataHandler(rester *sling.Sling, w http.ResponseWriter,
 
 	fieldSuggestionResults := &FieldSuggestionResults{}
 	res, err := rester.New().Get(autoCompleteData.URI).QueryStruct(fieldSuggestion).ReceiveSuccess(fieldSuggestionResults)
-	if err != nil {
-		return res, err
+	if err == nil && res.StatusCode == http.StatusOK {
+		return nil, render.Render(w, r, fieldSuggestionResults)
 	}
-	return res, render.Render(w, r, fieldSuggestionResults)
+	return res, err
 }
