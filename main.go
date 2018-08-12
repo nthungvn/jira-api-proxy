@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/gorilla/sessions"
+
 	"github.com/dghubble/sling"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -13,9 +15,10 @@ import (
 )
 
 var (
-	conf = AppConfiguration{}
-	_    = gonfig.GetConf(getConfFile(), &conf)
-	rest = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
+	conf         = AppConfiguration{}
+	_            = gonfig.GetConf(getConfFile(), &conf)
+	rest         = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
+	sessionStore sessions.Store
 )
 
 func main() {
