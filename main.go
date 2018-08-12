@@ -14,6 +14,11 @@ import (
 	"github.com/tkanos/gonfig"
 )
 
+const (
+	// SessionName name of session used
+	SessionName = "memory"
+)
+
 var (
 	conf         = AppConfiguration{}
 	_            = gonfig.GetConf(getConfFile(), &conf)
@@ -22,6 +27,7 @@ var (
 )
 
 func main() {
+	initSessionStore()
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -67,4 +73,8 @@ func main() {
 	})
 
 	http.ListenAndServe(conf.ServerPort(), r)
+}
+
+func initSessionStore() {
+	sessionStore = sessions.NewCookieStore([]byte("jira-api-proxy"))
 }

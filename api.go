@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 
+	"github.com/gorilla/sessions"
+
 	"github.com/dghubble/sling"
 	"github.com/go-chi/render"
 )
@@ -30,11 +32,18 @@ type APIDeclaration struct {
 type Handler func(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (*http.Response, error)
 
 func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session, _ := r.Cookie(JSESSIONID)
-	username, password, _ := r.BasicAuth()
-	rester := rest.New().Set(COOKIE, session.String())
+	rester := rest.New()
 
-	if len(username) > 0 && len(password) > 0 {
+	session, err := sessionStore.Get(r, SessionName)
+	sessionID, found := session.Values[JSESSIONID]
+	sessionIDValue, ok := sessionID.(string)
+	if found && ok {
+		cookie := sessions.NewCookie(JSESSIONID, sessionIDValue, &sessions.Options{})
+		rester.Set(COOKIE, cookie.String())
+	}
+
+	username, password, ok := r.BasicAuth()
+	if ok {
 		rester.SetBasicAuth(username, password)
 	}
 
