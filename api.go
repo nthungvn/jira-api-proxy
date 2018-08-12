@@ -5,7 +5,6 @@ import (
 
 	"github.com/dghubble/sling"
 	"github.com/go-chi/render"
-	"github.com/sirupsen/logrus"
 )
 
 // HTTP verbs
@@ -39,8 +38,23 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		rester.SetBasicAuth(username, password)
 	}
 
-	if res, err := h(rester, w, r); err != nil {
-		logrus.Info(res)
-		render.Render(w, r, ErrInvalidRequest(err))
+	res, err := h(rester, w, r)
+
+	if res == nil && err == nil {
+		// The handler already handle
+	} else if res != nil && err == nil {
+		h.handleErrorCode(w, res, err)
+	} else {
+		render.Render(w, r, ErrServerError(err))
+	}
+}
+
+func (h *Handler) handleErrorCode(w http.ResponseWriter, res *http.Response, err error) {
+	if res.StatusCode == http.StatusUnauthorized {
+		render.Render(w, res.Request, ErrUnauthorized(err))
+	} else {
+		render.Render(w, res.Request, &ResponseError{
+			HTTPStatusCode: res.StatusCode,
+		})
 	}
 }

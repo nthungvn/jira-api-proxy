@@ -14,10 +14,10 @@ func loginHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (
 		return nil, err
 	}
 	res, err := rester.New().Post(loginAPI.URI).BodyJSON(u).ReceiveSuccess(auth)
-	if err != nil {
-		return res, err
+	if err == nil && res.StatusCode == http.StatusOK {
+		return nil, render.Render(w, r, auth)
 	}
-	return res, render.Render(w, r, auth)
+	return res, err
 }
 
 func getCurrentLoginHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (*http.Response, error) {

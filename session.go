@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/go-chi/render"
@@ -64,10 +63,8 @@ type User struct {
 	Password string `json:"password"`
 }
 
-// Bind interface for managing request payloads.
+// Bind post-processing request payloads.
 func (u *User) Bind(r *http.Request) error {
-	if len(u.Username) == 0 || len(u.Password) == 0 {
-		return errors.New("The username or password is invalid")
-	}
+	// Do nothing
 	return nil
 }
