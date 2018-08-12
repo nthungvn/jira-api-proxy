@@ -12,9 +12,11 @@ import (
 	"github.com/tkanos/gonfig"
 )
 
-var conf = AppConfiguration{}
-var _ = gonfig.GetConf(getConfFile(), &conf)
-var rest = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
+var (
+	conf = AppConfiguration{}
+	_    = gonfig.GetConf(getConfFile(), &conf)
+	rest = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
+)
 
 func main() {
 	cors := cors.New(cors.Options{
