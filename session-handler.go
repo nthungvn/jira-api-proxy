@@ -25,6 +25,7 @@ func loginHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (
 		sessionID := &http.Cookie{
 			Name:  auth.Session.Name,
 			Value: auth.Session.Value,
+			Path:  "/",
 		}
 		http.SetCookie(w, sessionID)
 		return nil, render.Render(w, r, auth)
