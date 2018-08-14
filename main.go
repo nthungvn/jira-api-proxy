@@ -14,11 +14,6 @@ import (
 	"github.com/tkanos/gonfig"
 )
 
-const (
-	// SessionName name of session used
-	SessionName = "memory"
-)
-
 var (
 	conf         = AppConfiguration{}
 	_            = gonfig.GetConf(getConfFile(), &conf)
@@ -77,4 +72,7 @@ func main() {
 
 func initSessionStore() {
 	sessionStore = sessions.NewCookieStore([]byte("jira-api-proxy"))
+	if cookieStore, ok := sessionStore.(*sessions.CookieStore); ok {
+		cookieStore.Options = &sessions.Options{}
+	}
 }

@@ -15,13 +15,18 @@ func loginHandler(rester *sling.Sling, w http.ResponseWriter, r *http.Request) (
 	}
 	res, err := rester.New().Post(loginAPI.URI).BodyJSON(u).ReceiveSuccess(auth)
 	if err == nil && res.StatusCode == http.StatusOK {
-		if session, err := sessionStore.Get(r, SessionName); err == nil {
-			session.Values[auth.Session.Name] = auth.Session.Value
-			err := session.Save(r, w)
-			if err != nil {
-				return nil, err
-			}
+		// if session, err := sessionStore.Get(r, JSESSIONID); err == nil {
+		// 	session.Values[auth.Session.Value] = auth.Session.Value
+		// 	err := session.Save(r, w)
+		// 	if err != nil {
+		// 		return nil, err
+		// 	}
+		// }
+		sessionID := &http.Cookie{
+			Name:  auth.Session.Name,
+			Value: auth.Session.Value,
 		}
+		http.SetCookie(w, sessionID)
 		return nil, render.Render(w, r, auth)
 	}
 	return res, err
