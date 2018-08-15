@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"net/http"
 	"time"
 
@@ -73,6 +74,9 @@ func main() {
 func initSessionStore() {
 	sessionStore = sessions.NewCookieStore([]byte("jira-api-proxy"))
 	if cookieStore, ok := sessionStore.(*sessions.CookieStore); ok {
-		cookieStore.Options = &sessions.Options{}
+		cookieStore.Options = &sessions.Options{
+			Path: "/",
+		}
 	}
+	gob.Register(&User{})
 }

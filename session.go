@@ -61,6 +61,7 @@ func (s *CurrentSession) Render(w http.ResponseWriter, r *http.Request) error {
 type User struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Remember bool   `json:"remember"`
 }
 
 // Bind post-processing request payloads.

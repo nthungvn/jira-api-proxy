@@ -17,7 +17,8 @@ const (
 
 // Cookie names
 const (
-	JSESSIONID = "JSESSIONID"
+	JSESSIONID  = "JSESSIONID"
+	JREMEMBERME = "seraph.rememberme.cookie"
 )
 
 // APIDeclaration ...
