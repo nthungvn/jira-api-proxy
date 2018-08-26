@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/gob"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/sessions"
 
 	"github.com/dghubble/sling"
 	"github.com/go-chi/chi"
@@ -12,11 +15,15 @@ import (
 	"github.com/tkanos/gonfig"
 )
 
-var conf = AppConfiguration{}
-var _ = gonfig.GetConf(getConfFile(), &conf)
-var rest = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
+var (
+	conf         = AppConfiguration{}
+	_            = gonfig.GetConf(getConfFile(), &conf)
+	rest         = sling.New().Set("Content-Type", "application/json").Base(conf.BaseURL)
+	sessionStore sessions.Store
+)
 
 func main() {
+	initSessionStore()
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -62,4 +69,14 @@ func main() {
 	})
 
 	http.ListenAndServe(conf.ServerPort(), r)
+}
+
+func initSessionStore() {
+	sessionStore = sessions.NewCookieStore([]byte("jira-api-proxy"))
+	if cookieStore, ok := sessionStore.(*sessions.CookieStore); ok {
+		cookieStore.Options = &sessions.Options{
+			Path: "/",
+		}
+	}
+	gob.Register(&User{})
 }

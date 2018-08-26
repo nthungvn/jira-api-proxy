@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/go-chi/render"
@@ -62,16 +61,11 @@ func (s *CurrentSession) Render(w http.ResponseWriter, r *http.Request) error {
 type User struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Remember bool   `json:"remember"`
 }
 
-func (a Authentication) cookie() string {
-	return a.Session.Name + "=" + a.Session.Value
-}
-
-// Bind interface for managing request payloads.
+// Bind post-processing request payloads.
 func (u *User) Bind(r *http.Request) error {
-	if len(u.Username) == 0 || len(u.Password) == 0 {
-		return errors.New("The username or password is invalid")
-	}
+	// Do nothing
 	return nil
 }

@@ -12,6 +12,9 @@
             "program": "${workspaceRoot}",
             "env": {},
             "args": []
+            // Have to run headless for application first
+            // Option 1: Compile and Listen: dlv debug --headless --listen=:2345 --log
+            // Option 2: Execute precompiled binary and Listen: dlv exec <binary name> --headless --listen=:2345 --log
         },
         {
             "name": "Launch to Jira Proxy",
